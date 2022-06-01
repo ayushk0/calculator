@@ -6,7 +6,9 @@ KeyContainer switchMode(){
     darkMode: darkMode,
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
     borderRadius: BorderRadius.circular(40),
-    child: Row(
+    child: Container(
+      width: 70,
+      child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Icon(
@@ -15,9 +17,10 @@ KeyContainer switchMode(){
         ),
         Icon(
           Icons.nightlight,
-          color: darkMode ? Colors.grey : Colors.redAccent,
+          color: darkMode ? Colors.green : Colors.grey,
         ),
       ],
     ),
+    )
   );
 }

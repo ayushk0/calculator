@@ -22,20 +22,23 @@ class _CalculationState extends State<Calculation> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //Mode Switcher
-              switchMode(),
-              
+              GestureDetector(
+                onTap: () => setState(() {
+                  darkMode ? darkMode = false : darkMode = true;
+                }),
+                child: switchMode()),
+              const SizedBox( height: 80,),
               //Output Container
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(height: 20,),
                   Align(
                     alignment: Alignment.centerRight,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(
                         currentNumber,
-                        overflow: TextOverflow.visible,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: currentNumber.length > 10 ? 40 : 50,
                           fontWeight: FontWeight.bold,
@@ -44,6 +47,7 @@ class _CalculationState extends State<Calculation> {
                       ),
                     ),
                   ),
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -54,20 +58,20 @@ class _CalculationState extends State<Calculation> {
                           color: darkMode ? Colors.green : Colors.grey,
                         ),
                       ),
-
-                      Text(
-                        result,
-                        style: TextStyle(
-                          fontSize: result.length > 10 ? 25 : 35,
-                          color: darkMode ? Colors.green : Colors.grey,
+                      
+                      Flexible(
+                        child: Text(
+                          result,
+                          style: TextStyle(
+                            fontSize: result.length > 10 ? 25 : 35,
+                            color: darkMode ? Colors.green : Colors.grey,
+                          ),
+                          
                         ),
-                        
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox( height: 40, ),
                 ],
               ),
               //Keys Container
