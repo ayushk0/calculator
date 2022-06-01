@@ -38,6 +38,7 @@ class _KeyContainerState extends State<KeyContainer> {
       onPointerDown: _onPointerDown,
       onPointerUp: _onPointerUp,
       child: Container(
+        margin: const EdgeInsets.all(2),
         padding: widget.padding,
         decoration: BoxDecoration(
           color: darkMode ? darkColor : lightColor,
