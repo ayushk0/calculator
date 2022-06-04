@@ -11,6 +11,9 @@ class Calculation extends StatefulWidget {
 }
 
 class _CalculationState extends State<Calculation> {
+
+  bool hideResult = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,8 @@ class _CalculationState extends State<Calculation> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
+                  hideResult 
+                  ? Align(
                     alignment: Alignment.centerRight,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -41,37 +45,37 @@ class _CalculationState extends State<Calculation> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: currentNumber.length > 10 ? 40 : 50,
-                          fontWeight: FontWeight.bold,
                           color: darkMode ? Colors.white : Colors.black,
                         ),
                       ),
                     ),
-                  ),
+                  )
                   
-                  Row(
+                  : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '=',
                         style: TextStyle(
                           fontSize: 25,
-                          color: darkMode ? Colors.green : Colors.grey,
+                          color: darkMode ? Colors.green : Colors.redAccent,
                         ),
                       ),
                       
-                      Flexible(
-                        child: Text(
-                          result,
-                          style: TextStyle(
-                            fontSize: result.length > 10 ? 25 : 35,
-                            color: darkMode ? Colors.green : Colors.grey,
-                          ),
-                          
+                      Text(
+                        result,
+                        style: TextStyle(
+                          fontSize: result.length > 10 ? 40 : 50,
+                          fontWeight: FontWeight.bold,
+                          color: darkMode ? Colors.green : Colors.redAccent,
                         ),
+                        
                       ),
                     ],
                   ),
-                  const SizedBox( height: 40, ),
+
+                   const SizedBox( height: 40, ),
                 ],
               ),
               //Keys Container
@@ -175,6 +179,8 @@ class _CalculationState extends State<Calculation> {
               equation = currentNumber;
               equation = equation.replaceAll('×', '*');
               equation = equation.replaceAll('÷', '/');
+              equation = equation.replaceAll('–', '-');
+              hideResult = false;
 
               try{
                 Parser p = Parser();
@@ -196,10 +202,12 @@ class _CalculationState extends State<Calculation> {
               result = '0';
               currentNumber = '';
               equation = '';
+              hideResult = true;
               break;
             default:
               currentNumber = currentNumber + title;
               result = currentNumber;
+              hideResult = true;
           }
         }
       },
