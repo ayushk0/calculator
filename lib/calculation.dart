@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 import 'utilities/calcbutton.dart';
 import 'utilities/switchMode.dart';
 
@@ -92,7 +92,7 @@ class _CalculationState extends State<Calculation> {
                           icon: Icons.backspace_outlined,
                           iconColor: darkMode ? Colors.green : Colors.redAccent),
                         _buttonRounded(
-                          title: '/',
+                          title: '÷',
                           textColor: darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
@@ -103,8 +103,8 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '8'),
                         _buttonRounded(title: '9'),
                         _buttonRounded(
-                          icon: Icons.clear_rounded,
-                          iconColor: darkMode ? Colors.green : Colors.redAccent),
+                          title: '×',
+                          textColor: darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -114,8 +114,8 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '5'),
                         _buttonRounded(title: '6'),
                         _buttonRounded(
-                          icon: Icons.remove,
-                          iconColor: darkMode ? Colors.green : Colors.redAccent),
+                          title: '–',
+                          textColor: darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -125,8 +125,8 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '2'),
                         _buttonRounded(title: '3'),
                         _buttonRounded(
-                          icon: Icons.add_rounded,
-                          iconColor: darkMode ? Colors.green : Colors.redAccent),
+                          title: '+',
+                          textColor: darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -152,10 +152,9 @@ class _CalculationState extends State<Calculation> {
   }
 
   //Adding Functions to buttons
-  String result='0';
-  String previousNumber='';
-  String currentNumber='';
-  String selectedOperation='';
+  String result = '0';
+  String currentNumber = '';
+  String equation = '';
 
   Widget _buttonRounded(
     {String? title, double padding = 20, IconData? icon, Color? iconColor, Color? textColor}){
@@ -163,34 +162,7 @@ class _CalculationState extends State<Calculation> {
       onTap: () {
         setState(() {});
         if(title==null){
-          if(icon==Icons.add_rounded){            
-            if(previousNumber !=''){
-              _calculateResult();
-            } else {
-              previousNumber = currentNumber;
-            }
-            currentNumber = '';
-            selectedOperation = '+';
-          }
-          else if(icon==Icons.remove){
-            if(previousNumber !=''){
-              _calculateResult();
-            } else {
-              previousNumber = currentNumber;
-            }
-            currentNumber = '';
-            selectedOperation = '-';
-          }
-          else if(icon==Icons.clear_rounded){
-            if(previousNumber !=''){
-              _calculateResult();
-            } else {
-              previousNumber = currentNumber;
-            }
-            currentNumber = '';
-            selectedOperation = '*';
-          }
-          else if(icon==Icons.backspace_outlined){
+          if(icon==Icons.backspace_outlined){
             if(currentNumber.length > 0){
               currentNumber = currentNumber.substring(0, currentNumber.length-1);
             }
@@ -199,19 +171,22 @@ class _CalculationState extends State<Calculation> {
         else{
           switch (title) {
             case '=':
-              _calculateResult();
-              previousNumber = '';
-              selectedOperation = '';
-              currentNumber = result;
-              break;
-            case '/':
-              if(previousNumber !=''){
-              _calculateResult();
-              } else {
-              previousNumber = currentNumber;
+              //Calculating Result
+              equation = currentNumber;
+              equation = equation.replaceAll('×', '*');
+              equation = equation.replaceAll('÷', '/');
+
+              try{
+                Parser p = Parser();
+                Expression exp = p.parse(equation);
+
+                ContextModel cm = ContextModel();
+                result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+              }catch(e){
+                result = 'Error!';
               }
-              currentNumber = '';
-              selectedOperation = '/';
+
+              currentNumber = result;
               break;
             case '%':
               currentNumber = (convertStringToDouble(currentNumber) / 100).toString();
@@ -219,9 +194,8 @@ class _CalculationState extends State<Calculation> {
               break;
             case 'C':
               result = '0';
-              previousNumber = '';
               currentNumber = '';
-              selectedOperation = '';
+              equation = '';
               break;
             default:
               currentNumber = currentNumber + title;
@@ -255,32 +229,6 @@ class _CalculationState extends State<Calculation> {
         ),
       ),
     );
-  }
-  
-  //Calculating Result
-  void _calculateResult() {
-    double _previousNumber = convertStringToDouble(previousNumber);
-    double _currentNumber = convertStringToDouble(currentNumber);
-
-    switch(selectedOperation){
-      case '+':
-        _previousNumber = _previousNumber + _currentNumber;
-        break;
-      case '-':
-        _previousNumber = _previousNumber - _currentNumber;
-        break;
-      case '*':
-        _previousNumber = _previousNumber * _currentNumber;
-        break;
-      case '/':
-        _previousNumber = _previousNumber / _currentNumber;
-        break;
-      default:
-        break;
-    }
-
-    currentNumber = (_previousNumber % 1 == 0 ? _previousNumber.toInt() : _previousNumber).toString();
-    result = currentNumber;
   }
 
   double convertStringToDouble(String number) {
