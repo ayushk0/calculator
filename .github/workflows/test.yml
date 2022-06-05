@@ -1,22 +1,24 @@
-name: Android CI
+name: Flutter CI
+
 on:
- push:
-   branches: [master]
- pull_request:
-   branches: [master]
+  push:
+    branches:
+      - master
 
 jobs:
- build:
-   runs-on: ubuntu-latest
-   steps:
-     – name: Checkout
-       uses: actions/checkout@v1.0.0
-     – name: Setup JDK
-       uses: actions/setup-java@v2.5.0
-       with:
-         distribution: 'temurin'
-         java-version: '11'
-     – name: Set execution flag for gradlew
-       run: chmod +x gradlew
-     – name: Build with Gradle
-       run: ./gradlew build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1.0.0
+      - uses: actions/setup-java@v1.0.0
+        with:
+          java-version: '12.x'
+      - uses: calculator/flutter-action@v1.0.0
+      - run: flutter pub get
+      - run: flutter format --set-exit-if-changed .
+      - run: flutter analyze .
+      - run: flutter build apk
+      - uses: actions/upload-calculator@v1.0.0
+        with:
+          name: Calculator
+          path: build/app/outputs/apk/release/Calculator.apk
