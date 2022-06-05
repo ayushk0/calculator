@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 const Color darkColor = Color(0xFF374352);
@@ -10,7 +12,7 @@ class KeyContainer extends StatefulWidget {
   final BorderRadius borderRadius;
   final EdgeInsetsGeometry padding;
 
-  KeyContainer(
+  const KeyContainer(
       {this.darkMode = false,
       required this.child,
       required this.borderRadius,
@@ -67,56 +69,4 @@ class _KeyContainerState extends State<KeyContainer> {
       ),
     );
   }
-}
-
-Widget _buttonRounded(
-    {String? title,
-    double padding = 20,
-    IconData? icon,
-    Color? iconColor,
-    Color? textColor}) {
-  return GestureDetector(
-    onTap: () {
-      switch (title) {
-        case '0':
-          print("0 is pressed");
-          break;
-        case '1':
-          print("1 is pressed");
-          break;
-        case '2':
-          print("2 is pressed");
-          break;
-        default:
-      }
-    },
-    child: KeyContainer(
-      darkMode: darkMode,
-      borderRadius: BorderRadius.circular(40),
-      padding: EdgeInsets.all(padding),
-      child: Container(
-        width: padding * 2,
-        height: padding * 2,
-        child: Center(
-          child: title != null
-              ? Text(
-                  title,
-                  style: TextStyle(
-                    color: textColor != null
-                        ? textColor
-                        : darkMode
-                            ? Colors.white
-                            : Colors.black,
-                    fontSize: 30,
-                  ),
-                )
-              : Icon(
-                  icon,
-                  color: iconColor,
-                  size: 30,
-                ),
-        ),
-      ),
-    ),
-  );
 }

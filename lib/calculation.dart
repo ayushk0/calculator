@@ -66,7 +66,7 @@ class _CalculationState extends State<Calculation> {
                             Text(
                               result,
                               style: TextStyle(
-                                fontSize: result.length > 10 ? 40 : 50,
+                                fontSize: result.length > 10 ? 30 : 40,
                                 fontWeight: FontWeight.bold,
                                 color:
                                     darkMode ? Colors.green : Colors.redAccent,
@@ -179,7 +179,7 @@ class _CalculationState extends State<Calculation> {
         setState(() {});
         if (title == null) {
           if (icon == Icons.backspace_outlined) {
-            if (currentNumber.length > 0) {
+            if (currentNumber.isNotEmpty) {
               currentNumber =
                   currentNumber.substring(0, currentNumber.length - 1);
             }
@@ -228,7 +228,7 @@ class _CalculationState extends State<Calculation> {
         darkMode: darkMode,
         borderRadius: BorderRadius.circular(40),
         padding: EdgeInsets.all(padding),
-        child: Container(
+        child: SizedBox(
           width: padding * 2,
           height: padding * 2,
           child: Center(
@@ -236,11 +236,8 @@ class _CalculationState extends State<Calculation> {
                 ? Text(
                     title,
                     style: TextStyle(
-                      color: textColor != null
-                          ? textColor
-                          : darkMode
-                              ? Colors.white
-                              : Colors.black,
+                      color:
+                          textColor ?? (darkMode ? Colors.white : Colors.black),
                       fontSize: 30,
                     ),
                   )
