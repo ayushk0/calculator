@@ -14,7 +14,7 @@ class Calculator extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.system,
-      
+      debugShowCheckedModeBanner: false,      
       initialRoute: "/home",
       routes:{
         "/home":(context) => const Calculation(),
