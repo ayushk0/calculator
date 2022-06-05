@@ -11,7 +11,6 @@ class Calculation extends StatefulWidget {
 }
 
 class _CalculationState extends State<Calculation> {
-
   bool hideResult = true;
 
   @override
@@ -26,56 +25,58 @@ class _CalculationState extends State<Calculation> {
             children: [
               //Mode Switcher
               GestureDetector(
-                onTap: () => setState(() {
-                  darkMode ? darkMode = false : darkMode = true;
-                }),
-                child: switchMode()),
-              const SizedBox( height: 80,),
+                  onTap: () => setState(() {
+                        darkMode ? darkMode = false : darkMode = true;
+                      }),
+                  child: switchMode()),
+              const SizedBox(
+                height: 80,
+              ),
               //Output Container
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  hideResult 
-                  ? Align(
-                    alignment: Alignment.centerRight,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        currentNumber,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: currentNumber.length > 10 ? 40 : 50,
-                          color: darkMode ? Colors.white : Colors.black,
+                  hideResult
+                      ? Align(
+                          alignment: Alignment.centerRight,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              currentNumber,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: currentNumber.length > 10 ? 40 : 50,
+                                color: darkMode ? Colors.white : Colors.black,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '=',
+                              style: TextStyle(
+                                fontSize: 25,
+                                color:
+                                    darkMode ? Colors.green : Colors.redAccent,
+                              ),
+                            ),
+                            Text(
+                              result,
+                              style: TextStyle(
+                                fontSize: result.length > 10 ? 40 : 50,
+                                fontWeight: FontWeight.bold,
+                                color:
+                                    darkMode ? Colors.green : Colors.redAccent,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ),
-                  )
-                  
-                  : Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '=',
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: darkMode ? Colors.green : Colors.redAccent,
-                        ),
-                      ),
-                      
-                      Text(
-                        result,
-                        style: TextStyle(
-                          fontSize: result.length > 10 ? 40 : 50,
-                          fontWeight: FontWeight.bold,
-                          color: darkMode ? Colors.green : Colors.redAccent,
-                        ),
-                        
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 40,
                   ),
-
-                   const SizedBox( height: 40, ),
                 ],
               ),
               //Keys Container
@@ -87,17 +88,21 @@ class _CalculationState extends State<Calculation> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buttonRounded(
-                          title: 'C',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: 'C',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                         _buttonRounded(
-                          title: '%',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: '%',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                         _buttonRounded(
-                          icon: Icons.backspace_outlined,
-                          iconColor: darkMode ? Colors.green : Colors.redAccent),
+                            icon: Icons.backspace_outlined,
+                            iconColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                         _buttonRounded(
-                          title: '÷',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: '÷',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -107,8 +112,9 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '8'),
                         _buttonRounded(title: '9'),
                         _buttonRounded(
-                          title: '×',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: '×',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -118,8 +124,9 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '5'),
                         _buttonRounded(title: '6'),
                         _buttonRounded(
-                          title: '–',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: '–',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -129,8 +136,9 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '2'),
                         _buttonRounded(title: '3'),
                         _buttonRounded(
-                          title: '+',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: '+',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                     Row(
@@ -140,18 +148,18 @@ class _CalculationState extends State<Calculation> {
                         _buttonRounded(title: '0'),
                         _buttonRounded(title: '.'),
                         _buttonRounded(
-                          title: '=',
-                          textColor: darkMode ? Colors.green : Colors.redAccent),
+                            title: '=',
+                            textColor:
+                                darkMode ? Colors.green : Colors.redAccent),
                       ],
                     ),
                   ],
                 ),
-
               ),
             ],
           ),
-          ),
         ),
+      ),
     );
   }
 
@@ -161,18 +169,22 @@ class _CalculationState extends State<Calculation> {
   String equation = '';
 
   Widget _buttonRounded(
-    {String? title, double padding = 20, IconData? icon, Color? iconColor, Color? textColor}){
+      {String? title,
+      double padding = 20,
+      IconData? icon,
+      Color? iconColor,
+      Color? textColor}) {
     return GestureDetector(
       onTap: () {
         setState(() {});
-        if(title==null){
-          if(icon==Icons.backspace_outlined){
-            if(currentNumber.length > 0){
-              currentNumber = currentNumber.substring(0, currentNumber.length-1);
+        if (title == null) {
+          if (icon == Icons.backspace_outlined) {
+            if (currentNumber.length > 0) {
+              currentNumber =
+                  currentNumber.substring(0, currentNumber.length - 1);
             }
           }
-        }
-        else{
+        } else {
           switch (title) {
             case '=':
               //Calculating Result
@@ -182,20 +194,21 @@ class _CalculationState extends State<Calculation> {
               equation = equation.replaceAll('–', '-');
               hideResult = false;
 
-              try{
+              try {
                 Parser p = Parser();
                 Expression exp = p.parse(equation);
 
                 ContextModel cm = ContextModel();
                 result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-              }catch(e){
+              } catch (e) {
                 result = 'Error!';
               }
 
               currentNumber = result;
               break;
             case '%':
-              currentNumber = (convertStringToDouble(currentNumber) / 100).toString();
+              currentNumber =
+                  (convertStringToDouble(currentNumber) / 100).toString();
               result = currentNumber;
               break;
             case 'C':
@@ -220,19 +233,22 @@ class _CalculationState extends State<Calculation> {
           height: padding * 2,
           child: Center(
             child: title != null
-            ? Text(title,
-                style: TextStyle(
-                  color: textColor != null 
-                  ? textColor 
-                  : darkMode ? Colors.white : Colors.black,
-                  fontSize: 30,
+                ? Text(
+                    title,
+                    style: TextStyle(
+                      color: textColor != null
+                          ? textColor
+                          : darkMode
+                              ? Colors.white
+                              : Colors.black,
+                      fontSize: 30,
+                    ),
+                  )
+                : Icon(
+                    icon,
+                    color: iconColor,
+                    size: 30,
                   ),
-                )
-            : Icon(
-              icon,
-              color: iconColor,
-              size: 30,
-            ),
           ),
         ),
       ),

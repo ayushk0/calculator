@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'calculation.dart';
 
-void main()
-{
+void main() {
   runApp(const Calculator());
 }
 
@@ -13,12 +12,11 @@ class Calculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,      
-      initialRoute: "/home",
-      routes:{
-        "/home":(context) => const Calculation(),
-      }
-    );
+        themeMode: ThemeMode.system,
+        debugShowCheckedModeBanner: false,
+        initialRoute: "/home",
+        routes: {
+          "/home": (context) => const Calculation(),
+        });
   }
 }
