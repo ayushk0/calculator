@@ -52,8 +52,8 @@ class _CalculationState extends State<Calculation> {
                           ),
                         )
                       : SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -61,8 +61,9 @@ class _CalculationState extends State<Calculation> {
                                 '=  ',
                                 style: TextStyle(
                                   fontSize: 25,
-                                  color:
-                                      darkMode ? Colors.green : Colors.redAccent,
+                                  color: darkMode
+                                      ? Colors.green
+                                      : Colors.redAccent,
                                 ),
                               ),
                               Text(
@@ -70,13 +71,14 @@ class _CalculationState extends State<Calculation> {
                                 style: TextStyle(
                                   fontSize: result.length > 10 ? 30 : 40,
                                   fontWeight: FontWeight.bold,
-                                  color:
-                                      darkMode ? Colors.green : Colors.redAccent,
+                                  color: darkMode
+                                      ? Colors.green
+                                      : Colors.redAccent,
                                 ),
                               ),
                             ],
                           ),
-                      ),
+                        ),
                   const SizedBox(
                     height: 40,
                   ),
