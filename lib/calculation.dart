@@ -51,29 +51,32 @@ class _CalculationState extends State<Calculation> {
                             ),
                           ),
                         )
-                      : Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '=',
-                              style: TextStyle(
-                                fontSize: 25,
-                                color:
-                                    darkMode ? Colors.green : Colors.redAccent,
+                      : SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '=  ',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color:
+                                      darkMode ? Colors.green : Colors.redAccent,
+                                ),
                               ),
-                            ),
-                            Text(
-                              result,
-                              style: TextStyle(
-                                fontSize: result.length > 10 ? 30 : 40,
-                                fontWeight: FontWeight.bold,
-                                color:
-                                    darkMode ? Colors.green : Colors.redAccent,
+                              Text(
+                                result,
+                                style: TextStyle(
+                                  fontSize: result.length > 10 ? 30 : 40,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      darkMode ? Colors.green : Colors.redAccent,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                      ),
                   const SizedBox(
                     height: 40,
                   ),
